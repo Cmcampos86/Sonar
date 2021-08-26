@@ -1,0 +1,46 @@
+1 - FAZER O DOWNLOAD DO SONARQUBE COMMUNITY NO ENDEREÇO https://www.sonarqube.org/
+2 - DESCOMPACTAR E COLOCAR A PASTA PRINCIPAL EM C:/
+3 - ACESSAR PELO CMD A PASTA C:\sonarqube-8.9.0.43852\bin\windows-x86-64 (SE FOR WINDOWS) E EXECUTAR O StartSonar.bat
+4 - SE DER ERRO DE JAVA, BAIXE E INSTALE O JAVA (COPIAR O CAMINHO AONDE ESTA SENDO INSTALADO) QUE É SOLICITADO NA DESCRIÇÃO DO ERRO E DEPOIS REINICIE A MÁQUINA. CASO NÃO DÊ ERRO E NO FINAL MOSTRE A MENSAGEM SONAR IS UP, VÁ PARA O PASSO 5
+	4.1 - ACESSE O ARQUIVO C:\sonarqube-8.9.0.43852\conf\wrapper.conf COM UM BLOCO DE NOTAS
+	4.2 - COMENTE A LINHA "wrapper.java.command=java" (COLOCAR UM # NA FRENTE FICANDO ASSIM... #wrapper.java.command=java)
+	4.3 - DESCOMENTE A LINHA wrapper.java.command=/path/to/my/jdk/bin/java e no lugar do "/path/to/my/jdk/bin/java" COLOQUE O CAMINHO DA INSTALAÇÃO DO JAVA ACRESCENTANDO NO FINAL UM /java(EXE wrapper.java.command=C:\Program Files\Java\jdk-11.0.11\bin\java)
+	4.4 - SALVE O ARQUIVO E EXECUTE NOVAMENTE O PASSO 3
+5 - 
+
+PATHS
+-------
+C:\Fontes\BackEnd\CSharp
+C:\sonarqube\bin\windows-x86-64
+1f1b16057df08c9f66ec4827189a49671589a853
+
+COMANDOS
+--------
+SonarScanner.MSBuild.exe begin /k:"CSharp" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="1f1b16057df08c9f66ec4827189a49671589a853"
+MsBuild.exe /t:Rebuild
+SonarScanner.MSBuild.exe end /d:sonar.login="1f1b16057df08c9f66ec4827189a49671589a853"
+
+C:\sonar-scanner-msbuild-5.2.1.31210-net46\sonar-scanner-4.6.1.2450\bin>
+sonar-scanner -Dsonar.scanAllFiles=true -Dproject.settings=C:\Fontes\BackEnd\CSharp\.sonarqube\out\sonar-project.properties --from=ScannerMSBuild/5.2.1
+
+VERSÕES
+-------
+Sonarqube: 8.9.0.43852
+Java: Java 8 Update 291 e Java SDK 11.0.11
+SonarScanner for .NET: 5.2.1.31210-net46
+
+SERVIÇO
+-------
+sc delete "SonarQube"
+sc create SonarQube binPath= "\"C:\sonarqube\bin\windows-x86-64\wrapper.exe\" -s C:\sonarqube\conf\wrapper.conf"
+
+NOTAS
+-----
+Code Smells (cheiro de código): Código inconsistente (no comço não impacta mas no futuro pode impactar)
+Quali GAte: aprovado nos requisitos mínimos de qualidade. Aprovado para ser publicado
+Notas A até E: Do menor para o maior risco
+MEasures: as bolinhas indicam as notas e nelas o q impacta mais
+Coverage: Teste unitário
+Issues: Problemas
+Filtrar melhor por arquivo em issues
+Filtrar por Rule: Filtro por justificativa
